@@ -13,16 +13,14 @@
     - if alert
       %p.alert.alert-danger= alert
     %p.navbar-text.pull-right
-    -#- if user_signed_in?
+    - if user_signed_in?
       Logged in as
-      3
       = succeed "." do
         %strong= current_user.email
       = link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link'
       |
-      2
       \#{link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'}
-    -#- else
+    - else
       .login-form
         %form{:action => new_user_session_path, :method => "post"}
           %h2.text-center Log in
@@ -40,9 +38,8 @@
         %p.text-center
           %a{:href => new_user_registration_path} Create an Account
 
-      -#1
-      -#= link_to "Sign up", new_user_registration_path, :class => 'navbar-link'
-      -#|
-      -#\#{link_to "Login", new_user_session_path, :class => 'navbar-link'}
+      = link_to "Sign up", new_user_registration_path, :class => 'navbar-link'
+      |
+      \#{link_to "Login", new_user_session_path, :class => 'navbar-link'}
 
     = yield
