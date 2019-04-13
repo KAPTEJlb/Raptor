@@ -60,3 +60,11 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem "docraptor"
+gem 'pdf-reader'
+gem 'sidekiq'
+gem 'sidekiq-status'
+gem 'haml-rails'
+gem 'bootstrap'
+gem 'devise'
+gem 'pagy'
