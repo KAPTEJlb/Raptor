@@ -13,16 +13,36 @@
     - if alert
       %p.alert.alert-danger= alert
     %p.navbar-text.pull-right
-    - if user_signed_in?
+    -#- if user_signed_in?
       Logged in as
+      3
       = succeed "." do
         %strong= current_user.email
       = link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link'
       |
+      2
       \#{link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'}
-    - else
-      = link_to "Sign up", new_user_registration_path, :class => 'navbar-link'
-      |
-      \#{link_to "Login", new_user_session_path, :class => 'navbar-link'}
+    -#- else
+      .login-form
+        %form{:action => new_user_session_path, :method => "post"}
+          %h2.text-center Log in
+          .form-group
+            %input.form-control{:placeholder => "Username", :required => "required", :type => "text"}/
+          .form-group
+            %input.form-control{:placeholder => "Password", :required => "required", :type => "password"}/
+          .form-group
+            %button.btn.btn-primary.btn-block{:type => "submit"} Log in
+          .clearfix
+            %label.pull-left.checkbox-inline
+              %input{:type => "checkbox"}/
+              Remember me
+            %a.pull-right{:href => "#"} Forgot Password?
+        %p.text-center
+          %a{:href => new_user_registration_path} Create an Account
+
+      -#1
+      -#= link_to "Sign up", new_user_registration_path, :class => 'navbar-link'
+      -#|
+      -#\#{link_to "Login", new_user_session_path, :class => 'navbar-link'}
 
     = yield
