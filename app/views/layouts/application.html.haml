@@ -21,22 +21,8 @@
       |
       \#{link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'}
     - else
-      .login-form
-        %form{:action => new_user_session_path, :method => "post"}
-          %h2.text-center Log in
-          .form-group
-            %input.form-control{:placeholder => "Username", :required => "required", :type => "text"}/
-          .form-group
-            %input.form-control{:placeholder => "Password", :required => "required", :type => "password"}/
-          .form-group
-            %button.btn.btn-primary.btn-block{:type => "submit"} Log in
-          .clearfix
-            %label.pull-left.checkbox-inline
-              %input{:type => "checkbox"}/
-              Remember me
-            %a.pull-right{:href => "#"} Forgot Password?
-        %p.text-center
-          %a{:href => new_user_registration_path} Create an Account
+      %p.text-center
+        %a{:href => new_user_registration_path} Create an Account
 
       = link_to "Sign up", new_user_registration_path, :class => 'navbar-link'
       |
