@@ -1,0 +1,3 @@
+class SidekiqStatus < ApplicationRecord
+
+end
