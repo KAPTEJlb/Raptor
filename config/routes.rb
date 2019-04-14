@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   devise_for :users
   devise_for :models
-  root to: 'home#index'
+  root to: 'homes#index'
+
+  resource :homes
   require 'sidekiq/web'
   require 'sidekiq-status/web'
   mount Sidekiq::Web => '/sidekiq'

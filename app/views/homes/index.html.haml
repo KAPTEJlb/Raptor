@@ -1,0 +1,17 @@
+%h1 Home#index
+%p Find me in app/views/home/index.html.haml
+
+= form_for @new_urls, url: homes_path do |f|
+  .form-group
+    = f.label :urls
+    = f.text_area :urls, class: 'form-control form-height-100',
+                  placeholder: 'https://www.apple.com/ \nhttps://www.samsung.com/us/ \nhttps://www.google.com/'
+
+    = f.submit
+
+:javascript
+  var textAreas = document.getElementsByTagName('textarea');
+
+  Array.prototype.forEach.call(textAreas, function(elem) {
+    elem.placeholder = elem.placeholder.replace(/\\n/g, '\n');
+  });
