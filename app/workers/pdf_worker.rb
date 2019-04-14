@@ -14,11 +14,16 @@ class PdfWorker
     job = SidekiqStatus.find_by(job_id: self.jid)
     procentege = 100 / urls.count
     urls.each_with_index do |url, index|
-      raptor(url, url.gsub(/\W/, ''))
-      status = job_status(index, urls, procentege)
-      at status[0], status[1]
-      firebase(self.jid, status[0].to_i, status[1])
-      job.update(progress: status[0].to_i, message: status[1])
+      begin
+        raptor(url, url.gsub(/\W/, ''))
+        status = job_status(index, urls, procentege)
+        at status[0], status[1]
+        firebase(self.jid, status[0].to_i, status[1])
+        job.update(progress: status[0].to_i, message: status[1])
+      rescue
+        job.sidekiq_errors.new(error_messages: "Unfortunately, we can't download PDF from this website #{url}").save
+        next
+      end
     end
   end
 

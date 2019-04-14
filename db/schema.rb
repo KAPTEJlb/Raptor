@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_14_211213) do
+ActiveRecord::Schema.define(version: 2019_04_14_225651) do
 
   create_table "models", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -22,6 +22,12 @@ ActiveRecord::Schema.define(version: 2019_04_14_211213) do
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_models_on_email", unique: true
     t.index ["reset_password_token"], name: "index_models_on_reset_password_token", unique: true
+  end
+
+  create_table "sidekiq_errors", force: :cascade do |t|
+    t.string "error_messages"
+    t.integer "sidekiq_status_id"
+    t.index ["sidekiq_status_id"], name: "index_sidekiq_errors_on_sidekiq_status_id"
   end
 
   create_table "sidekiq_statuses", force: :cascade do |t|
