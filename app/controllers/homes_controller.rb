@@ -1,4 +1,5 @@
 class HomesController < ApplicationController
+  include RaptorParser
 
   def index
     @new_urls = current_user.url_lists.new
@@ -23,6 +24,10 @@ class HomesController < ApplicationController
     redirect_to homes_path(id: @url_list.id)
   end
 
+  def pdf_metadata
+    render json: parse_urls
+  end
+
   private
 
   def urls_params
@@ -37,6 +42,45 @@ class HomesController < ApplicationController
   def save_sidq_status(sidq_status)
     job = SidekiqStatus.new(job_id: sidq_status, url_list_id: @url_list.id)
     job.save
+  end
+
+  def parse_urls
+    uris = URI.parse(request.original_fullpath)
+    uris = CGI.parse(uris.query)
+
+    respond = []
+    uris.each_with_index do |uri, index|
+      uri[1].each do |url|
+        begin
+          raptor_api(url, create_pdf_name(url))
+        rescue
+          next
+        end
+      end
+        respond << {"#{index+1}": create_raptor_json(uri[1])}
+        respond << create_raptor_json(uri[1])
+    end
+    # TODO: need finish sorting and clean code
+    # respond.sort_by { |e| e.each { |el| el[0][:info][:Title]} }
+
+    respond
+  end
+
+  def create_raptor_json(urls)
+    result = []
+    begin
+      urls.each do |url|
+        reader = PDF::Reader.new("./tmp/#{create_pdf_name(url)}.pdf")
+        result << {url: reader.pdf_version, pdf_version: reader.pdf_version, info: reader.info, "metadata": reader.metadata, "page_count": reader.page_count}
+      end
+    rescue
+      result
+    end
+    result.sort_by{ |e| -e[:page_count] }
+  end
+
+  def create_pdf_name(url)
+    url.gsub(/\W/, '')
   end
 
 end

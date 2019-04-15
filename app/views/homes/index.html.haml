@@ -6,8 +6,9 @@
     = f.label :urls
     = f.text_area :urls, class: 'form-control form-height-100',
                   placeholder: 'https://www.apple.com/ \nhttps://www.samsung.com/us/ \nhttps://www.google.com/'
-
     = f.submit
+
+= link_to 'MetaData' , pdf_metadata_path
 
 :javascript
   var textAreas = document.getElementsByTagName('textarea');

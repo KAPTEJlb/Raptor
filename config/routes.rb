@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   root to: 'homes#index'
 
   resource :homes
+  match 'pdf_metadata' => 'homes', via: :get
   require 'sidekiq/web'
   require 'sidekiq-status/web'
   mount Sidekiq::Web => '/sidekiq'
