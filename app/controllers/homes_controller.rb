@@ -25,6 +25,7 @@ class HomesController < ApplicationController
   end
 
   def pdf_metadata
+    # http://localhost:3000/pdf_metadata?urls[]=https://www.centraldispatch.com/&urls[]=https://drive.google.com&urls1[]=https://www.apple.com/&urls2[]=https://www.bankofamerica.com/
     render json: parse_urls
   end
 
@@ -58,10 +59,8 @@ class HomesController < ApplicationController
         end
       end
         respond << {"#{index+1}": create_raptor_json(uri[1])}
-        respond << create_raptor_json(uri[1])
     end
-    # TODO: need finish sorting and clean code
-    # respond.sort_by { |e| e.each { |el| el[0][:info][:Title]} }
+    respond = respond.sort_by { |e| e.first.last.first[:info][:Title] }
 
     respond
   end
@@ -71,12 +70,14 @@ class HomesController < ApplicationController
     begin
       urls.each do |url|
         reader = PDF::Reader.new("./tmp/#{create_pdf_name(url)}.pdf")
-        result << {url: reader.pdf_version, pdf_version: reader.pdf_version, info: reader.info, "metadata": reader.metadata, "page_count": reader.page_count}
+        result << { url: reader.pdf_version, pdf_version: reader.pdf_version,
+                   info: reader.info, "metadata": reader.metadata,
+                   "page_count": reader.page_count }
       end
     rescue
       result
     end
-    result.sort_by{ |e| -e[:page_count] }
+    result.sort_by { |e| -e[:page_count] }
   end
 
   def create_pdf_name(url)
