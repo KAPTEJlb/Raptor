@@ -10,7 +10,7 @@
     %tbody
       - errors = @sidekiq_status.sidekiq_errors.pluck(:error_messages)
       - @sidekiq_status.url_list.urls.each do |link|
-        - css = errors.include?(link) ? 'table-danger' : ''
+        - css = errors.include?(link) ? 'table-danger' : 'table-success'
         %tr{class: css}
           %th{:scope => "row"}=link
           %td= css == 'table-danger' ? 'Pdf Error' : 'Pdf Created'
