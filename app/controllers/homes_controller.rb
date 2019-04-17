@@ -33,7 +33,6 @@ class HomesController < ApplicationController
   def download_pdf
     link = params[:link].gsub(/\W/, '')
     link.gsub!(/\..*/, '')
-    puts link.inspect
     send_file "./tmp/pdfs/#{link}.pdf", type: "application/pdf", x_sendfile: true
   end
 
