@@ -27,7 +27,7 @@ class HomesController < ApplicationController
   def download_pdf
     link = remove_sum(params[:link])
     link.gsub!(/\..*/, '')
-    file_path = "./tmp/pdfs/#{link}.pdf"
+    file_path = Rails.root.join('tmp', 'pdfs', "#{link}.pdf")
     send_file file_path, type: 'application/pdf', x_sendfile: true
   end
 
