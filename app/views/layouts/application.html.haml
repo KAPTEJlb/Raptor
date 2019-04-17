@@ -9,11 +9,12 @@
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   %body
     = render partial: 'layouts/header'
-    .container-fluid
-      .content-center.pd-top-1
-        = flash_messages
-        %p.navbar-text.pull-right
-        .raptor
-        = yield
+    .container
+      .container-fluid
+        .content-center.pd-top-1
+          = flash_messages
+          %p.navbar-text.pull-right
+          .raptor
+          = yield
     #footer
       = render partial: 'layouts/footer'
