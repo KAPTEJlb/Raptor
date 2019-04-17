@@ -44,14 +44,26 @@
 
 #footer {
   bottom: 0;
-  position: absolute;
   width: 100%;
 }
 
 .content-center {
   width: 1200px;
   margin: auto;
+
 }
+
+html, body {
+  height: 100%;
+  margin: 0px;
+}
+.container {
+  height: 90%;
+}
+
+.container-fluid {
+}
+
 
 .form-center {
   width: 300px;
