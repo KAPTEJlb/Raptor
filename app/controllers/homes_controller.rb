@@ -48,7 +48,7 @@ class HomesController < ApplicationController
   end
 
   def convert_urls(object)
-    object[:urls] = object[:urls].tr('\n', ' ').split(' ')
+    object[:urls] = object[:urls].gsub(/\n/, ' ').split(' ')
   end
 
   def save_sidq_status(sidq_status)
@@ -90,7 +90,7 @@ class HomesController < ApplicationController
 
   def read_pdf(urls, result)
     urls.each do |url|
-      reader = PDF::Reader.new("./tmp/#{remove_sum(url)}.pdf")
+      reader = PDF::Reader.new(Rails.root.join('tmp', 'pdfs', "#{remove_sum(url)}.pdf"))
       result << { url: reader.pdf_version, pdf_version: reader.pdf_version,
                   info: reader.info, "metadata": reader.metadata,
                   "page_count": reader.page_count }
