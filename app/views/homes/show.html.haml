@@ -13,7 +13,7 @@ Progress
 
 :javascript
   // Initialize Firebase
-  var config = {
+  let config = {
     apiKey: "AIzaSyAyn4L700DQny83ix5bbg13_amJLCEs6TU",
     authDomain: "raptor-fc7b8.firebaseapp.com",
     databaseURL: "https://raptor-fc7b8.firebaseio.com",
@@ -25,17 +25,17 @@ Progress
   firebase.database();
 
   list_id = $('#list_id').text();
-  var starCountRef = firebase.database().ref('SidekiqJob/' + list_id);
+  let starCountRef = firebase.database().ref('SidekiqJob/' + list_id);
   starCountRef.on('value', function(snapshot) {
     if(snapshot.val() !== null) {
-      progress_done = snapshot.val().status;
+      let progress_done = snapshot.val().status;
       $('.progress-bar-animated').attr('aria-valuenow', progress_done).css('width', progress_done+'%');
       if(progress_done === 100) {
         DataRequest(snapshot.val().process_id)
       }
     }
   });
-  
+
   function DataRequest(process_id) {
     $.ajax({
       url: "homes",
