@@ -1,5 +1,6 @@
 module RaptorParser
   extend ActiveSupport::Concern
+  Dir.mkdir(File.join(Rails.root, 'tmp/pdfs/')) unless File.directory?('tmp/pdfs/')
 
   def raptor_api(url, name)
     name.gsub!(/\..*/, '')
