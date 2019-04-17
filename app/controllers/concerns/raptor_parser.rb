@@ -18,7 +18,7 @@ module RaptorParser
   end
 
   def save_file(pdf_respond, name)
-    File.open("./tmp/#{name}.pdf", "wb") do |file|
+    File.open("./tmp/pdfs/#{name}.pdf", "wb") do |file|
       file.write(pdf_respond)
     end
   end

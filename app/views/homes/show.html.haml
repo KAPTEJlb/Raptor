@@ -1,6 +1,10 @@
-.progress
-  .progress-bar.progress-bar-striped.progress-bar-animated{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => "75", :role => "progressbar", :style => "width: 2%"}
-#list_id= @list.sidekiq_status.job_id
+#list_id.dp-none= @list.sidekiq_status.job_id
+#progress_bar
+  .progress
+    .progress-bar.progress-bar-striped.progress-bar-animated{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => "75", :role => "progressbar", :style => "width: 2%"}
+
+#raptor_result
+  = render partial: 'homes/sidekiq_result'
 
 %script{:src => "https://www.gstatic.com/firebasejs/5.9.4/firebase-app.js"}
 %script{:src => "https://www.gstatic.com/firebasejs/5.9.4/firebase-auth.js"}
@@ -19,12 +23,26 @@
   firebase.initializeApp(config);
   firebase.database();
 
-  list_id = $('#list_id').text()
+  list_id = $('#list_id').text();
   var starCountRef = firebase.database().ref('SidekiqJob/' + list_id);
   starCountRef.on('value', function(snapshot) {
-    console.log(snapshot.val());
     if(snapshot.val() !== null) {
       progress_done = snapshot.val().status;
       $('.progress-bar-animated').attr('aria-valuenow', progress_done).css('width', progress_done+'%');
+      if(progress_done === 100) {
+        DataRequest(snapshot.val().process_id)
+      }
     }
   });
+  
+  function DataRequest(process_id) {
+    $.ajax({
+      url: "homes",
+      dataType: 'script',
+      data: {
+        id: window.location.href.replace(/.*id=/g, ''),
+        process_id: process_id
+
+      },
+    });
+   };

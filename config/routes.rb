@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
   resource :homes
   match 'pdf_metadata' => 'homes', via: :get
+  match 'download_pdf' => "homes#download_pdf", via: :get
   require 'sidekiq/web'
   require 'sidekiq-status/web'
   mount Sidekiq::Web => '/sidekiq'

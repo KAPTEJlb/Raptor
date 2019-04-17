@@ -8,21 +8,12 @@
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   %body
-    - if notice
-      %p.alert.alert-success= notice
-    - if alert
-      %p.alert.alert-danger= alert
-    %p.navbar-text.pull-right
-    - if user_signed_in?
-      Logged in as
-      = succeed "." do
-        %strong= current_user.email
-      = link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link'
-      |
-      \#{link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'}
-
     = render partial: 'layouts/header'
-    .content{style: 'max-width: 1200px; margin: auto; padding-top: 1.5rem; height: 700px;'}
-      .raptor
-      = yield
-    = render partial: 'layouts/footer'
+    .container-fluid
+      .content-center.pd-top-1
+        = flash_messages
+        %p.navbar-text.pull-right
+        .raptor
+        = yield
+    #footer
+      = render partial: 'layouts/footer'

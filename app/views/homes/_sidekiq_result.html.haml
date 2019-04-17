@@ -1,0 +1,20 @@
+.content-center.pd-top-1
+  = flash_messages
+- if @sidekiq_status.present?
+  %table.table
+    %thead
+      %tr
+        %th{:scope => "col"} Website Url
+        %th{:scope => "col"} Status
+        %th{:scope => "col"} Download Link
+    %tbody
+      - errors = @sidekiq_status.sidekiq_errors.pluck(:error_messages)
+      - @sidekiq_status.url_list.urls.each do |link|
+        - css = errors.include?(link) ? 'table-danger' : ''
+        %tr{class: css}
+          %th{:scope => "row"}=link
+          %td= css == 'table-danger' ? 'Pdf Error' : 'Pdf Created'
+          - if css == 'table-danger'
+            %td
+          - else
+            %td= link_to "Download", download_pdf_path(link: link)

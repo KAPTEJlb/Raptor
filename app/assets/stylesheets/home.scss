@@ -25,6 +25,7 @@
 
 .form-control.form-height-100 {
   height: 100px;
+  margin-bottom: 1rem;
 }
 
 .raptor {
@@ -34,4 +35,33 @@
   position: absolute;
   margin-left: 60%;
   margin-top: 20%;
+  z-index: -1;
+}
+
+.color-white {
+  color: white;
+}
+
+#footer {
+  bottom: 0;
+  position: absolute;
+  width: 100%;
+}
+
+.content-center {
+  width: 1200px;
+  margin: auto;
+}
+
+.form-center {
+  width: 300px;
+  margin: auto;
+}
+
+.pd-top-1 {
+  padding-top: 1rem;
+}
+
+.dp-none {
+  display: none;
 }

@@ -1,15 +1,15 @@
-%h1 Home#index
-%p Find me in app/views/home/index.html.haml
+%h1 Add your links and take pdf files
 
 = form_for @new_urls, url: homes_path do |f|
   .form-group
     = f.label :urls
     = f.text_area :urls, class: 'form-control form-height-100',
                   placeholder: 'https://www.apple.com/ \nhttps://www.samsung.com/us/ \nhttps://www.google.com/'
-    = f.submit
+    = f.submit 'Submit', class: 'btn btn-primary'
 
-= link_to 'MetaData' , pdf_metadata_path
-
+You also can send array parameters and you will get JSON metadata respond
+%br
+Example: /pdf_metadata?urls[]=https://www.centraldispatch.com/&urls1[]=https://www.apple.com/&urls2[]=https://www.bankofamerica.com/
 :javascript
   var textAreas = document.getElementsByTagName('textarea');
 

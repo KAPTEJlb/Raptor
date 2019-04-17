@@ -1,14 +1,14 @@
 %nav.navbar.navbar-expand-sm.bg-dark.navbar-dark
-  %a.navbar-brand{:href => "#"} Raptor
-  %button.navbar-toggler
-    %span.navbar-toggler-icon
-  #navbarTogglerDemo02.collapse.navbar-collapse
-    %ul.navbar-nav.mr-auto.mt-2.mt-lg-0
-      %li.nav-item.active
-        %a.nav-link{:href => "#"}
-          Home
-          %span.sr-only (current)
-      %li.nav-item
-        %a.nav-link{:href => "#"} Link
-      %li.nav-item
-        %a.nav-link.disabled{:href => "#"} Disabled
+  .content-center
+    #navbarTogglerDemo02.collapse.navbar-collapse
+      %ul.navbar-nav.mr-auto.mt-2.mt-lg-0
+        = link_to 'Raptor', root_path, class: 'navbar-brand'
+      %form.form-inline.my-2.my-lg-0
+        .color-white
+          - if user_signed_in?
+            Logged in as
+            = succeed "." do
+              %strong= current_user.email
+            = link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link'
+            |
+            \#{link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'}
