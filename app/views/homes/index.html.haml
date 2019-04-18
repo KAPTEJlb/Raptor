@@ -1,3 +1,4 @@
+
 %h1 Add your links and take pdf files
 
 = form_for @new_urls, url: homes_path do |f|
@@ -11,9 +12,4 @@ You also can send array parameters and you will get JSON metadata respond
 %br
 Example: /pdf_metadata?urls[]=https://www.centraldispatch.com/&urls1[]=https://www.apple.com/&urls2[]=https://www.bankofamerica.com/
 
-:javascript
-  let textAreas = document.getElementsByTagName('textarea');
-
-  Array.prototype.forEach.call(textAreas, function(elem) {
-    elem.placeholder = elem.placeholder.replace(/\\n/g, '\n');
-  });
+= javascript_include_tag('home')
