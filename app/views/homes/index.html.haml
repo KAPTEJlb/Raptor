@@ -1,5 +1,5 @@
 
-%h1 Add your links and take pdf files
+%h1 Enter links below and press "Submit" to get pdf files
 
 = form_for @new_urls, url: homes_path do |f|
   .form-group
@@ -8,7 +8,7 @@
                   placeholder: 'https://www.apple.com/ \nhttps://www.samsung.com/us/ \nhttps://www.google.com/'
     = f.submit 'Submit', class: 'btn btn-primary'
 
-You also can send array parameters and you will get JSON metadata respond
+You also can send array parameters and you will get JSON metadata response
 %br
 Example: /pdf_metadata?urls[]=https://www.centraldispatch.com/&urls1[]=https://www.apple.com/&urls2[]=https://www.bankofamerica.com/
 
