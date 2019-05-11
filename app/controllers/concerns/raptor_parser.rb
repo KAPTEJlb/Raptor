@@ -10,11 +10,11 @@ module RaptorParser
 
     $docraptor = DocRaptor::DocApi.new
     response = $docraptor.create_doc(
-        test: true,
-        document_url: url,
-        name: name + '.pdf',
-        document_type: "pdf",
-        )
+      test: true,
+      document_url: url,
+      name: name + '.pdf',
+      document_type: "pdf",
+    )
     save_file(response, name)
   end
 
